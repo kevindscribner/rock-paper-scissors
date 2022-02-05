@@ -1,55 +1,40 @@
+let playerPoints = 0;
+let computerPoints = 0;
+
 function computerPlay() {
     const choices = ["Rock", "Paper", "Scissors"];
     let choice = choices[Math.floor(Math.random() * choices.length)];
     return(choice);
-}
+};
 
 function playRound(playerSelection, computerSelection) {
     if (computerSelection === playerSelection) {
-        alert(`Both players chose ${playerSelection}, it's a tie!`);
-        alert(`Current Score - Player: ${playerScore}, Computer: ${computerScore}`)
-    } else if (computerSelection === "Rock" && playerSelection === "Paper" 
-    || computerSelection === "Paper" &&  playerSelection === "Scissors" 
-    || computerSelection === "Scissors" && playerSelection === "Rock") {
-        alert(`${playerSelection} beats ${computerSelection}, you win!`); 
-        playerScore += 1;
-        alert(`Current Score - Player: ${playerScore}, Computer: ${computerScore}`)
+        results.innerText = `Both players chose ${playerSelection} it's a draw.`;
+    } else if (
+        computerSelection === "Rock" && playerSelection === "Paper" ||
+        computerSelection === "Paper" &&  playerSelection === "Scissors" || 
+        computerSelection === "Scissors" && playerSelection === "Rock"
+        ) { 
+        playerPoints += 1;
+        results.innerText = `${playerSelection} beats ${computerSelection} you win this round.`;
     } else {
-        alert(`${computerSelection} beats ${playerSelection}, you lose!`);
-        computerScore += 1;
-        alert(`Current Score - Player: ${playerScore}, Computer: ${computerScore}`)
-    }
+        results.innerText = `${computerSelection} beats ${playerSelection} you lost this round.`;
+        computerPoints += 1;
+    };
+    handleUI(playerSelection, computerSelection);
+    gameOver();
 };
-
-function game() {
-    rounds = 1;
-
-    while (rounds <= 5) {
-        let playerSelection = ''
-        playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
-        let computerSelection = computerPlay();
-        playRound(playerSelection, computerSelection);
-        rounds += 1;
-    }
-
-    if(playerScore > computerScore) {
-        alert(`Congratulations you won!\nFinal Score - Player: ${playerScore} Computer: ${computerScore}`)
-    } else if(playerScore < computerScore) {
-        alert(`You Lost!\nFinal Score - Player: ${playerScore} Computer: ${computerScore}`)
-    } else {
-        alert(`It's a draw!\nFinal Score: Player - ${playerScore} Computer: ${computerScore}`)
-    }
-}
-
-let playerScore = 0;
-let computerScore = 0;
 
 /* User Interface */
 
 const rockBtn = document.getElementById('rockBtn');
 const paperBtn = document.getElementById('paperBtn');
 const scissorsBtn = document.getElementById('scissorsBtn');
-let score = document.getElementsByClassName('score')
+const playerChoice = document.getElementById('playerChoice');
+const comChoice = document.getElementById('comChoice');
+const playerScore = document.getElementById('playerScore');
+const comScore = document.getElementById('comScore');
+const results = document.getElementById('results');
 
 rockBtn.addEventListener('click', () => {
     playerSelection = 'Rock';
@@ -68,3 +53,52 @@ scissorsBtn.addEventListener('click', () => {
     computerSelection = computerPlay();
     playRound(playerSelection, computerSelection);
 });
+
+function playerGraphic(playerSelection){
+    if (playerSelection === 'Rock') {
+        playerSelection = '✊';
+    }
+    else if (playerSelection === 'Paper') {
+        playerSelection = '🤚';
+    }
+    else {
+        playerSelection ='✌️';
+    }
+    return playerSelection;
+};
+
+function comGraphic(computerSelection){
+    if (computerSelection === 'Rock') {
+        computerSelection = '✊';
+    }
+    else if (computerSelection === 'Paper') {
+        computerSelection = '🤚';
+    }
+    else {
+        computerSelection ='✌️';
+    }
+    return computerSelection;
+};
+
+function handleUI(playerSelection, computerSelection){
+    computerSelection = comGraphic(computerSelection);
+    comChoice.childNodes[0].textContent = `${computerSelection}`;
+    comScore.innerText = `Enemy's Score: ${computerPoints}`;
+
+    playerSelection = playerGraphic(playerSelection);
+    playerChoice.childNodes[0].textContent = `${playerSelection}`;
+    playerScore.innerText = `Player's Score: ${playerPoints}`;
+};
+
+function gameOver(){
+    if(playerPoints === 5 || computerPoints === 5 ) {
+        rockBtn.disabled = true;
+        paperBtn.disabled = true;
+        scissorsBtn.disabled = true;
+        if(playerPoints === 5){
+            results.innerText = 'Congratulations you won! Refresh the page to play again.'
+        } else {
+            results.innerText = 'You lost :( refresh the page to play again'
+        };
+    };
+};
