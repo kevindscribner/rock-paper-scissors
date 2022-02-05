@@ -4,7 +4,6 @@ function computerPlay() {
     return(choice);
 }
 
-
 function playRound(playerSelection, computerSelection) {
     if (computerSelection === playerSelection) {
         alert(`Both players chose ${playerSelection}, it's a tie!`);
@@ -20,14 +19,13 @@ function playRound(playerSelection, computerSelection) {
         computerScore += 1;
         alert(`Current Score - Player: ${playerScore}, Computer: ${computerScore}`)
     }
-}  
-
+};
 
 function game() {
     rounds = 1;
 
     while (rounds <= 5) {
-        let playerSelection = prompt("Type either rock, paper, or scissors: ");
+        let playerSelection = ''
         playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
         let computerSelection = computerPlay();
         playRound(playerSelection, computerSelection);
@@ -43,7 +41,30 @@ function game() {
     }
 }
 
-playerScore = 0;
-computerScore = 0;
+let playerScore = 0;
+let computerScore = 0;
 
-game();
+/* User Interface */
+
+const rockBtn = document.getElementById('rockBtn');
+const paperBtn = document.getElementById('paperBtn');
+const scissorsBtn = document.getElementById('scissorsBtn');
+let score = document.getElementsByClassName('score')
+
+rockBtn.addEventListener('click', () => {
+    playerSelection = 'Rock';
+    computerSelection = computerPlay();
+    playRound(playerSelection, computerSelection);
+});
+
+paperBtn.addEventListener('click', () => {
+    playerSelection = 'Paper';
+    computerSelection = computerPlay();
+    playRound(playerSelection, computerSelection);
+});
+
+scissorsBtn.addEventListener('click', () => {
+    playerSelection = 'Scissors';
+    computerSelection = computerPlay();
+    playRound(playerSelection, computerSelection);
+});
