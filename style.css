@@ -1,0 +1,62 @@
+body {
+    font-family: 'Segoe UI Emoji', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(29, 29, 29);
+    color: rgb(248, 204, 6);
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+}
+
+button {
+    font-size: 150px;
+    background-color: rgb(36, 36, 36);
+    border: 2px;
+    border-radius: 4px 21px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    background-color:rgb(36, 36, 36);
+}
+
+.title {
+    font-size: 56px;
+    font-weight: 700;
+}
+.sub-title {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 150px;
+    gap: 125px;
+    margin: 20px;
+}
+
+.score {
+    font-size: 20px;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+#results {
+    text-align: center;
+    margin-top: 20px;
+}
